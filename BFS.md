@@ -60,3 +60,54 @@ def racecar(self, target):
     return step
 ```
 
+
+
+#### [1293. Shortest Path in a Grid with Obstacles Elimination](https://leetcode.cn/problems/shortest-path-in-a-grid-with-obstacles-elimination/)
+
+求从左上角到右下角的最短路径，消除obstacles的个数不超过$k$
+
+思路: 剪枝 visited[(x, y)] = cnt (剩余消除路障的额度), 更新只存在于new_cnt > cnt
+
+状态数: $M \times N \times ( \min(k, M+N) )$
+
+```python
+def shortestPath(self, grid, k):
+
+    # in deque, (i, j, step, cnt)
+    m, n = len(grid), len(grid[0])
+    k = min(k, m + n)
+    q = deque()
+    q.append( (0, 0, 0, k) )
+
+    visited = {}
+
+    while q:
+        x, y, step, cnt = q.popleft()
+        if x == m - 1 and y == n - 1: return step
+        if (x, y) in visited and visited[(x, y)] >= cnt: continue
+
+        visited[(x, y)] = cnt
+
+        for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            xx = x + dx
+            yy = y + dy
+            if (0 <= xx and xx < m and 0 <= yy and yy < n):
+                if xx == m - 1 and yy == n - 1:
+                    return step + 1
+                if grid[xx][yy]:
+                    if cnt > 0:
+                        if (xx, yy) not in visited:
+                            q.append( (xx, yy, step+1, cnt-1) )
+                        else:
+                            if cnt - 1 > visited[(xx, yy)]:
+                                q.append( (xx, yy, step+1, cnt-1) )
+                else:
+                    if (xx, yy) not in visited:
+                        q.append( (xx, yy, step+1, cnt) )
+                    else:
+                        if cnt > visited[(xx, yy)]:
+                            q.append( (xx, yy, step+1, cnt) )
+
+    return -1
+```
+
