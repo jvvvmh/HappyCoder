@@ -108,5 +108,15 @@ class MyCalendar(object):
         return False
 ```
 
-题有：[715. Range 模块](https://leetcode.cn/problems/range-module/)、[2276. 统计区间中的整数数目](https://leetcode.cn/problems/count-integers-in-intervals/)
+
+
+Segment Tree:
+
+#### [2158. Amount of New Area Painted Each Day](https://leetcode.cn/problems/amount-of-new-area-painted-each-day/)
+
+
+
+
+
+[715. Range 模块](https://leetcode.cn/problems/range-module/)、[2276. 统计区间中的整数数目](https://leetcode.cn/problems/count-integers-in-intervals/)
 
